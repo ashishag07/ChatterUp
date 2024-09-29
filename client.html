@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font Awesome Link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Bootstrap Link -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Stylesheet link -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Bootstrap Script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Socket IO script -->
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+    <title>Chatter Up</title>
+  </head>
+
+  <body>
+    <!-- Login Form -->
+    <section id="login-section" class="h-100 gradient-custom">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div class="card mask-custom mb-4">
+              <div class="card-body p-5 text-center">
+                <div class="mb-md-5 mt-md-4 pb-5">
+                  <h2 class="fw-bold mb-2 text-uppercase">Join Chatter Up</h2>
+                  <p class="text-white-50 mb-5">
+                    Please enter your username and roomId
+                  </p>
+
+                  <!-- Username Input -->
+                  <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input
+                      type="text"
+                      id="username-input"
+                      placeholder="Enter your username"
+                      class="form-control form-control-lg"
+                    />
+                  </div>
+
+                  <!-- RoomId Input -->
+                  <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input
+                      type="text"
+                      id="roomId-input"
+                      placeholder="Enter your room Id"
+                      class="form-control form-control-lg"
+                    />
+                  </div>
+
+                  <!-- Url Input -->
+                  <div data-mdb-input-init class="form-outline form-white mb-4">
+                    <input
+                      type="text"
+                      id="url-input"
+                      placeholder="Enter your url"
+                      class="form-control form-control-lg"
+                    />
+                  </div>
+
+                  <!-- Chat Join Button -->
+                  <button
+                    id="joinChat-btn"
+                    data-mdb-button-init
+                    data-mdb-ripple-init
+                    class="btn btn-outline-light btn-lg px-5"
+                    type="submit"
+                  >
+                    Join Chat
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Login Form Section end -->
+    <!-- -------------------------------------------------------------------------- -->
+
+    <!--------------------------------- New Section -------------------------------------->
+    <section id="home-page" class="gradient-custom" style="display: none">
+      <div class="container py-5">
+        <div class="row">
+          <div class="col-md-6 col-lg-7 col-xl-7 vh-100">
+            <div class="alert alert-light d-flex justify-content-between">
+              <h6 id="welcome-msg">Welcome! Guest</h6>
+              <p id="typing-msg" style="display: none">Brian is typing...</p>
+            </div>
+            <!-- message container -->
+            <ul
+              id="message-container"
+              class="list-unstyled text-white p-1 h-75 overflow-auto border"
+            ></ul>
+
+            <!-- message input  -->
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="form-outline form-white w-75">
+                <textarea
+                  class="form-control"
+                  id="message-input"
+                  rows="2"
+                  placeholder="Enter your message..."
+                ></textarea>
+              </div>
+
+              <!-- message send button -->
+              <button
+                id="send-button"
+                type="button"
+                data-mdb-button-init
+                data-mdb-ripple-init
+                class="btn btn-light btn-lg btn-rounded float-end"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+
+          <!-- new column  -->
+          <div class="col-md-6 col-lg-5 col-xl-5 mb-4 mb-md-0">
+            <div class="row mb-2">
+              <h5 class="font-weight-bold mb-3 text-center text-white">
+                Online Friends
+              </h5>
+
+              <div class="card mask-custom">
+                <div class="card-body">
+                  <!-- Online Friends Container -->
+                  <ul id="online-friends-container" class="list-unstyled mb-0">
+                    No one is online !!
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- notification div -->
+            <div class="row my-5">
+              <h5 class="font-weight-bold mb-3 text-center text-white">
+                Notifications
+              </h5>
+              <div class="card mask-custom">
+                <div class="card-body">
+                  <h6 id="notification-connection">No one is connected yet</h6>
+                  <ul id="notifications" class="list-unstyled mb-0"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
